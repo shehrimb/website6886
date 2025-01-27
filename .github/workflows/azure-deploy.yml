@@ -40,6 +40,6 @@ jobs:
     - name: Azure Web App Deploy
       uses: azure/webapps-deploy@v2
       with:
-        app-name: <your-app-name>  # Replace with your Azure App Service name
+        app-name: <Proj>  # Replace with your Azure App Service name
         slot-name: 'production'  # If you have a staging slot, replace with that
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure publish profile stored as GitHub secret
