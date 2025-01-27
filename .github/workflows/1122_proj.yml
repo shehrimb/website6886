@@ -60,11 +60,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
 
-        - name: List directory contents
-          run: ls -al  # Check if files are present
-
-        - name: Zip artifact for deployment
-         run: zip -r release.zip .  # Zip everything in the current directory
   
         with:
           app-name: 'Proj'
