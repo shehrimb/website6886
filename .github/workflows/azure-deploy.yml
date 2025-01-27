@@ -1,0 +1,45 @@
+name: Azure App Service Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # Trigger this on changes to the main branch
+  pull_request:
+    branches:
+      - main  # Also trigger on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js (or your preferred environment)
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Adjust the version if necessary
+
+    - name: Install dependencies
+      run: |
+        npm install  # For Node.js, change according to your tech stack
+
+    - name: Build the project
+      run: |
+        npm run build  # For Node.js, change according to your tech stack
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Ensure build runs before deploying
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Azure Web App Deploy
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: <your-app-name>  # Replace with your Azure App Service name
+        slot-name: 'production'  # If you have a staging slot, replace with that
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}  # Azure publish profile stored as GitHub secret
