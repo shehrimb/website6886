@@ -1,0 +1,252 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT PathFinder</title>
+    <link rel="stylesheet" href="Proj.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="logo">IT PathFinder</div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#paths">Career Paths</a></li>
+        <li class="dropdown">
+            <a href="#practice">IT Practices <span class="dropdown-arrow">▼</span></a>
+            <ul class="dropdown-content">
+                <li><a href="#comptia">CompTIA</a></li>
+                <li><a href="#cisco">Cisco</a></li>
+                <li><a href="#aws">AWS</a></li>
+                <li><a href="#microsoft">Microsoft</a></li>
+            </ul>
+        </li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#resources">Resources</a></li>
+    </ul>
+    <div class="auth-buttons">
+        <button id="loginBtn" class="btn login">Login</button>
+        <button id="signupBtn" class="btn signup">Sign Up</button>
+        <button id="logoutBtn" class="btn logout" style="display: none;">Logout</button>
+    </div>
+</nav>
+
+<div class="test-container" id="career-quiz">
+    <div class="test-header">
+        <h2>Find Your IT Career Path</h2>
+        <p>Answer the following questions to determine the best career path for you in IT.</p>
+    </div>
+    <div class="question" id="question-container">
+        <!-- Questions will be dynamically inserted here -->
+    </div>
+    <div class="test-controls">
+        <button class="btn" id="prev-btn" onclick="prevQuestion()">Previous</button>
+        <button class="btn-primary" id="next-btn" onclick="nextQuestion()">Next</button>
+    </div>
+    <div class="test-results hidden" id="results">
+        <h2>Your Recommended Career Path:</h2>
+        <p id="career-result"></p>
+    </div>
+</div>
+
+
+<!-- Hero Section -->
+<header class="hero">
+    <div class="hero-content">
+        <h1>Start Your IT Career Journey</h1>
+        <p>Discover your path, prepare for certifications, and access learning resources</p>
+        <button class="cta-button">Get Started</button>
+    </div>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Additional Content -->
+    </main>
+
+    <!-- Scripts -->
+    <script type="module">
+        // Azure Connection Example
+        import { Connection, Request } from "tedious";
+
+        const config = {
+            authentication: {
+                options: {
+                    userName: "shehrimb", // Azure SQL username
+                    password: "@@Asd0558991249", // Azure SQL password
+                },
+                type: "default"
+            },
+            server: "shehrimb", // Azure SQL server name
+            options: {
+                database: "MoDb", // Azure SQL database name
+                encrypt: true,
+                rowCollectionOnRequestCompletion: true
+            }
+        };
+
+        const connection = new Connection(config);
+
+        connection.on("connect", (err) => {
+            if (err) {
+                console.error("Connection Failed:", err.message);
+            } else {
+                console.log("Connected to Azure SQL Database!");
+                fetchCareerPaths(); // Example function
+            }
+        });
+
+        function fetchCareerPaths() {
+            const request = new Request("SELECT * FROM CareerPaths", (err, rowCount, rows) => {
+                if (err) {
+                    console.error(err.message);
+                } else {
+                    console.log(`${rowCount} row(s) returned`);
+                    console.log(rows);
+                    // Update the DOM with data if needed
+                }
+            });
+
+            connection.execSql(request);
+        }
+    </script>
+    <script src="js/main.js"></script>
+
+
+</header>
+
+<!-- Main Content -->
+<main class="main-content">
+    <!-- Career Paths Section -->
+    <section id="paths" class="section">
+        <h2>Popular Career Paths</h2>
+        <div class="card-container" id="pathsContainer">
+            <!-- Career paths will be loaded here -->
+        </div>
+    </section>
+
+    <!-- IT Practices Section -->
+    <section id="practice" class="section">
+        <h2>IT Certification Practice Tests</h2>
+
+        <!-- CompTIA Section -->
+        <div id="comptia" class="practice-category">
+            <h3>CompTIA Certifications</h3>
+            <div class="practice-grid">
+                <div class="practice-card">
+                    <img src="assets/a-plus.png" alt="A+ Logo">
+                    <h4>CompTIA A+</h4>
+                    <p>Core hardware & OS technologies</p>
+                    <div class="practice-info">
+                        <span>90 Questions</span>
+                        <span>90 Minutes</span>
+                    </div>
+                    <button class="btn btn-primary">Start Practice</button>
+                </div>
+
+                <div class="practice-card">
+                    <img src="assets/network-plus.png" alt="Network+ Logo">
+                    <h4>CompTIA Network+</h4>
+                    <p>Networking concepts & implementation</p>
+                    <div class="practice-info">
+                        <span>90 Questions</span>
+                        <span>90 Minutes</span>
+                    </div>
+                    <button class="btn btn-primary">Start Practice</button>
+                </div>
+
+                <div class="practice-card">
+                    <img src="assets/security-plus.png" alt="Security+ Logo">
+                    <h4>CompTIA Security+</h4>
+                    <p>Cybersecurity fundamentals</p>
+                    <div class="practice-info">
+                        <span>90 Questions</span>
+                        <span>90 Minutes</span>
+                    </div>
+                    <button class="btn btn-primary">Start Practice</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cisco Section -->
+        <div id="cisco" class="practice-category">
+            <h3>Cisco Certifications</h3>
+            <div class="practice-grid">
+                <div class="practice-card">
+                    <img src="assets/ccna.png" alt="CCNA Logo">
+                    <h4>CCNA</h4>
+                    <p>Networking fundamentals</p>
+                    <div class="practice-info">
+                        <span>100 Questions</span>
+                        <span>120 Minutes</span>
+                    </div>
+                    <button class="btn btn-primary">Start Practice</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- AWS Section -->
+        <div id="aws" class="practice-category">
+            <h3>AWS Certifications</h3>
+            <div class="practice-grid">
+                <div class="practice-card">
+                    <img src="assets/aws-cloud.png" alt="AWS Cloud Practitioner Logo">
+                    <h4>Cloud Practitioner</h4>
+                    <p>Cloud concepts & AWS basics</p>
+                    <div class="practice-info">
+                        <span>65 Questions</span>
+                        <span>90 Minutes</span>
+                    </div>
+                    <button class="btn btn-primary">Start Practice</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="section">
+        <h2>Learning Resources</h2>
+        <div class="card-container" id="resourcesContainer">
+            <!-- Resources will be loaded here -->
+        </div>
+    </section>
+</main>
+
+<!-- Auth Modals -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="loginEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="loginPassword" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>
+
+<div id="signupModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Sign Up</h2>
+        <form id="signupForm">
+            <div class="form-group">
+                <input type="email" id="signupEmail" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="signupPassword" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2024 IT PathFinder. All rights reserved.</p>
+</footer>
